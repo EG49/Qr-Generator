@@ -40,3 +40,5 @@ String = "".join(filter(lambda letra: letra != '"', String))
 String = "".join(filter(lambda letra: letra != "'", String))
 String = "".join(filter(lambda letra: letra != ',', String))
 print(String)
+for i in range(0, len(String)):
+    print(String[i])

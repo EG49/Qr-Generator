@@ -94,6 +94,36 @@ def PintarBaseQR(ColorQR):
     PintarCelda("T20", ColorQR)
     PintarCelda("J19", ColorQR)
 
+
+def PintarDiagonal(Fila, Columna, ColorQR, ColorFondo, Cadena):
+    abecedario = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
+                  "U", "V", "W", "X", "Y", "Z", "AA"]
+    print("Empiezo a pintar diagonal")
+    Color = ""
+    for i in range (0,8):
+        if (Cadena[i] == "0"):
+            Color = ColorFondo
+            if i == 1: PintarCelda(abecedario[Columna] + str(Fila), Color)
+            elif i == 2: PintarCelda(abecedario[Columna - 1] + str(Fila), Color)
+            elif i == 3:PintarCelda(abecedario[Columna] + str(Fila - 1), Color)
+            elif i == 4:PintarCelda(abecedario[Columna - 1] + str(Fila - 1), Color)
+            elif i == 5:PintarCelda(abecedario[Columna] + str(Fila - 2), Color)
+            elif i == 6:PintarCelda(abecedario[Columna - 1] + str(Fila - 2), Color)
+            elif i == 7:PintarCelda(abecedario[Columna] + str(Fila - 3), Color)
+            else: PintarCelda(abecedario[Columna - 1] + str(Fila - 3), Color)
+        else:
+            Color = ColorQR
+            if i == 1: PintarCelda(abecedario[Columna] + str(Fila), Color)
+            elif i == 2: PintarCelda(abecedario[Columna - 1] + str(Fila), Color)
+            elif i == 3:PintarCelda(abecedario[Columna] + str(Fila - 1), Color)
+            elif i == 4:PintarCelda(abecedario[Columna - 1] + str(Fila - 1), Color)
+            elif i == 5:PintarCelda(abecedario[Columna] + str(Fila - 2), Color)
+            elif i == 6:PintarCelda(abecedario[Columna - 1] + str(Fila - 2), Color)
+            elif i == 7:PintarCelda(abecedario[Columna] + str(Fila - 3), Color)
+            else: PintarCelda(abecedario[Columna - 1] + str(Fila - 3), Color)
+
+
+
 wb = Workbook()
 ws = wb.active
 ColorFondo = "FFFFFF"
@@ -103,7 +133,7 @@ PintarBase(ColorFondo,28)
 PintarBaseQR(ColorQR)
 AlternarPintar(ColorQR,ColorFondo, 9, "Fila", 9, "A", 7,2)
 AlternarPintar(ColorQR,ColorFondo, 9, "Columna", 10, "G", 7,2)
-
+PintarDiagonal(20,25, ColorQR, "FF00FF", "00010101")
 
 
 

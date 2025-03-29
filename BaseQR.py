@@ -4,6 +4,8 @@ from openpyxl import Workbook
 from openpyxl.styles import PatternFill
 from pycparser.c_ast import Break
 
+from NumeroBinario import CadenaBinario, NumBinario, LimpiarString
+
 fila = range(1,27)
 def PintarBase(Color, Rango):
     abecedario = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
@@ -55,11 +57,8 @@ def AlternarPintar(ColorQR, ColorFondo, Rango, Linea, PuntoInicio, Columna, Fila
         for aux in range(0, Rango, NSaltos):
             try:
                 PintarCelda(Columna+ str(aux + PuntoInicio), ColorQR)
-                print(f"Pinto celda {Columna + str(aux + PuntoInicio)} verde")
                 PintarCelda(Columna + str(aux + PuntoInicio + NSaltos -1), ColorFondo)
-                print(f"Pinto celda {Columna + str(aux + PuntoInicio + NSaltos -1)} azul")
                 aux = aux + PuntoInicio
-                print("El contador i es " + str(aux))
 
             except:
                 print("list index out of range")
@@ -100,27 +99,81 @@ def PintarDiagonal(Fila, Columna, ColorQR, ColorFondo, Cadena):
                   "U", "V", "W", "X", "Y", "Z", "AA"]
     print("Empiezo a pintar diagonal")
     Color = ""
-    for i in range (0,8):
+    print(f"Longitud de la cadena es: {len(Cadena)} ")
+    for i in range (0,len(Cadena)):
+        print(f"Cadena {Cadena} con índice {i} es {Cadena[i]} ")
         if (Cadena[i] == "0"):
             Color = ColorFondo
-            if i == 1: PintarCelda(abecedario[Columna] + str(Fila), Color)
-            elif i == 2: PintarCelda(abecedario[Columna - 1] + str(Fila), Color)
-            elif i == 3:PintarCelda(abecedario[Columna] + str(Fila - 1), Color)
-            elif i == 4:PintarCelda(abecedario[Columna - 1] + str(Fila - 1), Color)
-            elif i == 5:PintarCelda(abecedario[Columna] + str(Fila - 2), Color)
-            elif i == 6:PintarCelda(abecedario[Columna - 1] + str(Fila - 2), Color)
-            elif i == 7:PintarCelda(abecedario[Columna] + str(Fila - 3), Color)
-            else: PintarCelda(abecedario[Columna - 1] + str(Fila - 3), Color)
+            print("Print de Ceros")
+            if i == 0:
+                Celda = abecedario[Columna] + str(Fila)
+                print(f"Primer print {Celda}")
+
+                PintarCelda(Celda, Color)
+            elif i == 1:
+                Celda = abecedario[Columna - 1] + str(Fila)
+                print(f"Segundo print {Celda}")
+                PintarCelda(Celda, Color)
+            elif i == 2:
+                Celda = abecedario[Columna] + str(Fila-1)
+                print(f"Tercer print {Celda}")
+                PintarCelda(Celda, Color)
+            elif i == 3:
+                Celda = abecedario[Columna - 1] + str(Fila - 1)
+                print(f"Cuarto print {Celda}")
+                PintarCelda(Celda, Color)
+            elif i == 4:
+                Celda = abecedario[Columna] + str(Fila - 2)
+                print(Celda)
+                PintarCelda(Celda, Color)
+            elif i == 5:
+                Celda = abecedario[Columna - 1] + str(Fila - 2)
+                print(Celda)
+                PintarCelda(Celda, Color)
+            elif i == 6:
+                Celda = abecedario[Columna] + str(Fila - 3)
+                print(f"Septimo Print {Celda}")
+                PintarCelda(Celda, Color)
+            elif i == 7:
+                Celda = abecedario[Columna - 1] + str(Fila - 3)
+                print(f"else print {Celda}")
+                PintarCelda(Celda, Color)
         else:
             Color = ColorQR
-            if i == 1: PintarCelda(abecedario[Columna] + str(Fila), Color)
-            elif i == 2: PintarCelda(abecedario[Columna - 1] + str(Fila), Color)
-            elif i == 3:PintarCelda(abecedario[Columna] + str(Fila - 1), Color)
-            elif i == 4:PintarCelda(abecedario[Columna - 1] + str(Fila - 1), Color)
-            elif i == 5:PintarCelda(abecedario[Columna] + str(Fila - 2), Color)
-            elif i == 6:PintarCelda(abecedario[Columna - 1] + str(Fila - 2), Color)
-            elif i == 7:PintarCelda(abecedario[Columna] + str(Fila - 3), Color)
-            else: PintarCelda(abecedario[Columna - 1] + str(Fila - 3), Color)
+            print("Print de Unos")
+            if i == 0:
+                Celda = abecedario[Columna] + str(Fila)
+                print(f"Primer print {Celda}")
+
+                PintarCelda(Celda, Color)
+            elif i == 1:
+                Celda = abecedario[Columna - 1] + str(Fila)
+                print(f"Segundo print {Celda}")
+                PintarCelda(Celda, Color)
+            elif i == 2:
+                Celda = abecedario[Columna] + str(Fila - 1)
+                print(f"Tercer print {Celda}")
+                PintarCelda(Celda, Color)
+            elif i == 3:
+                Celda = abecedario[Columna - 1] + str(Fila - 1)
+                print(f"Cuarto print {Celda}")
+                PintarCelda(Celda, Color)
+            elif i == 4:
+                Celda = abecedario[Columna] + str(Fila - 2)
+                print(Celda)
+                PintarCelda(Celda, Color)
+            elif i == 5:
+                Celda = abecedario[Columna - 1] + str(Fila - 2)
+                print(Celda)
+                PintarCelda(Celda, Color)
+            elif i == 6:
+                Celda = abecedario[Columna] + str(Fila - 3)
+                print(f"Septimo print {Celda}")
+                PintarCelda(Celda, Color)
+            elif i == 7:
+                Celda = abecedario[Columna - 1] + str(Fila - 3)
+                print(f"else print {Celda}")
+                PintarCelda(Celda, Color)
 
 
 
@@ -128,12 +181,17 @@ wb = Workbook()
 ws = wb.active
 ColorFondo = "FFFFFF"
 ColorQR = "000000"
+StringTest = "01110111"
+Green = "00FF00"
+Blue = "0000FF"
 ws.column_dimensions["B"].width = 3
 PintarBase(ColorFondo,28)
 PintarBaseQR(ColorQR)
 AlternarPintar(ColorQR,ColorFondo, 9, "Fila", 9, "A", 7,2)
 AlternarPintar(ColorQR,ColorFondo, 9, "Columna", 10, "G", 7,2)
-PintarDiagonal(20,25, ColorQR, "FF00FF", "00010101")
+BinarioLongitud = "01101101"
+PintarDiagonal(20,25, Green, Blue,StringTest )
+PintarDiagonal(24,25, Green, Blue,LimpiarString(BinarioLongitud) )
 
 
 

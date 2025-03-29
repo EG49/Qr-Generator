@@ -1,7 +1,9 @@
 from string import ascii_letters
 import re
 
-def BinarioFunc(Char):
+
+
+def NumBinario(Char):
     ListaBinario = list("00000000")
     Base = 2
     if (Char % 2) == 0:
@@ -15,30 +17,32 @@ def BinarioFunc(Char):
             Char = (Char - (Base ** (7 - i)))
     return ListaBinario
 
+def LimpiarString(Matriz):
+    MatrizLimpia = [re.sub(r"[\[\], ]", "", elem) for elem in Matriz]
+    String = str(MatrizLimpia)
+    String = "".join(filter(lambda letra: letra != "[", String))
+    String = "".join(filter(lambda letra: letra != "]", String))
+    String = "".join(filter(lambda letra: letra != '"', String))
+    String = "".join(filter(lambda letra: letra != "'", String))
+    String = "".join(filter(lambda letra: letra != ',', String))
+    return(String)
+def CadenaBinario(String):
+    print(f"Longitud de la cadena es {len(String)}")
+    MatrizBinaria = []
+    for i in range(0, LongitudInput):
+        Aux = ord(ListaCompleta[i])
+        print(str(NumBinario(Aux)))
+        print(NumBinario(Aux))
+        MatrizBinaria.append(str(NumBinario(Aux)))
+    return(MatrizBinaria)
 
 ListaCompleta = str(input("Ingresa una palabra para transformarla a binario: "))
 print(ListaCompleta)
 LongitudInput = int(len(ListaCompleta))
 print(f"La longitud es: {LongitudInput}")
-MatrizBinaria = []
-for i in range(0,LongitudInput):
-    Aux = ord(ListaCompleta[i])
-    print(str(BinarioFunc(Aux)))
-    print(BinarioFunc(Aux))
-    MatrizBinaria.append(str(BinarioFunc(Aux)))
+MatrizBinaria = CadenaBinario(ListaCompleta)
 
 
-print(MatrizBinaria)
-ListaBinaria = list(MatrizBinaria)
-print(ListaBinaria)
-MatrizLimpia =[re.sub(r"[\[\], ]", "", elem) for elem in MatrizBinaria]
-print(str(MatrizLimpia))
-String = str(MatrizLimpia)
-String = "".join(filter(lambda letra: letra != "[", String))
-String = "".join(filter(lambda letra: letra != "]", String))
-String = "".join(filter(lambda letra: letra != '"', String))
-String = "".join(filter(lambda letra: letra != "'", String))
-String = "".join(filter(lambda letra: letra != ',', String))
-print(String)
-for i in range(0, len(String)):
-    print(String[i])
+Aux4 = LimpiarString(MatrizBinaria)
+print(Aux4)
+

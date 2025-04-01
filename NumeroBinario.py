@@ -36,7 +36,7 @@ def CadenaBinario(String):
         MatrizBinaria.append(str(NumBinario(Aux)))
     return(MatrizBinaria)
 
-ListaCompleta = str(input("Ingresa una palabra para transformarla a binario: "))
+ListaCompleta = str(input("Ingresa una palabra para transformarla a binario: NumBinario.py "))
 print(ListaCompleta)
 LongitudInput = int(len(ListaCompleta))
 print(f"La longitud es: {LongitudInput}")

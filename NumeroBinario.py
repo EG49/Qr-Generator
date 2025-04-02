@@ -34,15 +34,27 @@ def CadenaBinario(String):
         print(str(NumBinario(Aux)))
         print(NumBinario(Aux))
         MatrizBinaria.append(str(NumBinario(Aux)))
-    return(MatrizBinaria)
+    return(MatrizBinaria, len(String))
 
 ListaCompleta = str(input("Ingresa una palabra para transformarla a binario: NumBinario.py "))
 print(ListaCompleta)
 LongitudInput = int(len(ListaCompleta))
 print(f"La longitud es: {LongitudInput}")
-MatrizBinaria = CadenaBinario(ListaCompleta)
+MatrizBinaria, Longitud = CadenaBinario(ListaCompleta)
 
 
 Aux4 = LimpiarString(MatrizBinaria)
 print(Aux4)
+print(f"La cadena {ListaCompleta} tiene de largo {Longitud} caracteres")
+NumeroEspacios = 0
+for i in range(0,len(Aux4)):
+   if Aux4[i] == " ":
+       NumeroEspacios = NumeroEspacios + 1
+       if NumeroEspacios == 1:
+           Caracter1 = Aux4[i - 8 : i ]
+       elif NumeroEspacios == 2:
+           Caracter2 = Aux4[i - 8 : i ]
 
+
+print(f"La cadena del primer caracter es {Caracter1} ")
+print(f"La cadena del segundo caracter es {Caracter2} ")

@@ -44,6 +44,7 @@ MatrizBinaria, Longitud = CadenaBinario(ListaCompleta)
 
 
 Aux4 = LimpiarString(MatrizBinaria)
+print(type(MatrizBinaria))
 print(Aux4)
 print(f"La cadena {ListaCompleta} tiene de largo {Longitud} caracteres")
 NumeroEspacios = 0

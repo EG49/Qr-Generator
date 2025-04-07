@@ -1,16 +1,17 @@
 from warnings import catch_warnings
 
+import numpy as np
 from openpyxl import Workbook
 from openpyxl.styles import PatternFill
 from pycparser.c_ast import Break
 
 from NumeroBinario import CadenaBinario, NumBinario, LimpiarString
+from PintarExcel import LongitudInput
 
 fila = range(1,27)
-print("PRIMER PRINT")
-def PintarBase(Color, Rango):
-    abecedario = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
+abecedario = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
                   "U", "V", "W", "X", "Y", "Z", "AA"]
+def PintarBase(Color, Rango):
     fill = PatternFill(start_color=Color, end_color=Color, fill_type="solid")
     for i in range(1, Rango):
         for i2 in range(1, Rango):
@@ -19,8 +20,6 @@ def PintarBase(Color, Rango):
             ws.column_dimensions[abecedario[i - 1]].width = 3
 
 def PintarRango(Color, Rango, Linea, PuntoInicio,Columna, Fila ):
-    abecedario = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
-                  "U", "V", "W", "X", "Y", "Z", "AA"]
     fill = PatternFill(start_color=Color, end_color=Color, fill_type="solid")
     if Linea == "Fila":
         for i in range(1, Rango):
@@ -38,16 +37,12 @@ def PintarCelda(Celda, Color):
     ws[Celda].fill = fill
 
 def AlternarPintar(ColorQR, ColorFondo, Rango, Linea, PuntoInicio, Columna, Fila, NSaltos ):
-    abecedario = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
-                  "U", "V", "W", "X", "Y", "Z", "AA"]
     fill = PatternFill(start_color=ColorQR, end_color=ColorQR, fill_type="solid")
     if Linea == "Fila":
         for aux in range(0, Rango , NSaltos):
             try:
                 PintarCelda(abecedario[aux + PuntoInicio] + str(Fila), ColorQR)
-                print(f"Pinto celda {abecedario[ aux + PuntoInicio] + str(Fila)} verde")
-                PintarCelda(abecedario[aux +  PuntoInicio + NSaltos - 1] + str(Fila), ColorFondo)
-                print(f"Pinto celda {abecedario[aux + PuntoInicio + NSaltos - 1 ] + str(Fila)} azul")
+
                 aux = aux + PuntoInicio
                 print("El contador i es " + str(aux))
 
@@ -58,7 +53,7 @@ def AlternarPintar(ColorQR, ColorFondo, Rango, Linea, PuntoInicio, Columna, Fila
         for aux in range(0, Rango, NSaltos):
             try:
                 PintarCelda(Columna+ str(aux + PuntoInicio), ColorQR)
-                PintarCelda(Columna + str(aux + PuntoInicio + NSaltos -1), ColorFondo)
+
                 aux = aux + PuntoInicio
 
             except:
@@ -107,8 +102,6 @@ def PintarDiagonal(Fila, Columna, ColorQR, ColorFondo, Cadena):
 
 
 def Diagonal(Color, Contador, Columna, Fila):
-    abecedario = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
-                  "U", "V", "W", "X", "Y", "Z", "AA"]
     if Contador == 0:
         Celda = abecedario[Columna] + str(Fila)
         PintarCelda(Celda, Color)
@@ -134,6 +127,44 @@ def Diagonal(Color, Contador, Columna, Fila):
         Celda = abecedario[Columna - 1] + str(Fila - 3)
         PintarCelda(Celda, Color)
 
+
+def CeldasOcupadasCuadrado(inicioFila,inicioColumna, Rango):
+    CeldasTomadas = []
+    for Fila in (range(inicioFila, Rango + inicioFila)):
+        for Columna in (range(inicioColumna, Rango + inicioColumna)):
+            CeldasTomadas.append(abecedario[Columna] + str(Fila + 1))
+    return CeldasTomadas
+
+def CeldasOcupadasSolo(inicioFila,inicioColumna, Rango, Boolean):
+    CeldasTomadas = []
+    if Boolean:
+        for Fila in (range(inicioFila, Rango + inicioFila)):
+            CeldasTomadas.append(abecedario[inicioColumna] + str(Fila + 1))
+    else:
+        for Columna in (range(inicioColumna, Rango + inicioColumna)):
+            CeldasTomadas.append(abecedario[Columna] + str(inicioFila + 1))
+
+    return CeldasTomadas
+
+
+print(CeldasOcupadasCuadrado(1,1, 9)) #ARRIBA IZQUIERDA
+print(CeldasOcupadasCuadrado(18,1, 8)) #ABAJO IZQUIERDA
+print(CeldasOcupadasSolo(18,10, 8, True)) #ABAJO IZQUIERDA
+print(CeldasOcupadasSolo(9,18, 8, False))
+print(CeldasOcupadasCuadrado(1,18, 8)) # ARRIBA DERECHA
+print(CeldasOcupadasCuadrado(17,17, 5))  #CUADRADO SOLO
+print(CeldasOcupadasCuadrado(6,11, 1))
+print(CeldasOcupadasCuadrado(6,13, 1))
+print(CeldasOcupadasCuadrado(6,15, 1))
+print(CeldasOcupadasCuadrado(6,17, 1))
+print(CeldasOcupadasCuadrado(11,6, 1))
+print(CeldasOcupadasCuadrado(13,6, 1))
+print(CeldasOcupadasCuadrado(15,6, 1))
+print(CeldasOcupadasCuadrado(17,6, 1))
+
+
+TotalCeldasOcupadas = (CeldasOcupadasCuadrado(6,11, 1) +  CeldasOcupadasCuadrado(6,13, 1) +  CeldasOcupadasCuadrado(6,15, 1) + CeldasOcupadasCuadrado(6,17, 1) + CeldasOcupadasCuadrado(11,6, 1) +  CeldasOcupadasCuadrado(13,6, 1) +  CeldasOcupadasCuadrado(15,6, 1) + CeldasOcupadasCuadrado(17,6, 1)+ CeldasOcupadasCuadrado(1,1, 8) +  CeldasOcupadasCuadrado(18,1, 8) + CeldasOcupadasCuadrado(1,18, 8) + CeldasOcupadasCuadrado(17,17, 5) + CeldasOcupadasSolo(9,18, 8, False) + CeldasOcupadasSolo(18,10, 8, True))
+print(TotalCeldasOcupadas)
 print("PRIMER PRINT")
 wb = Workbook()
 ws = wb.active
@@ -145,16 +176,30 @@ Blue = "0000FF"
 ws.column_dimensions["B"].width = 3
 PintarBase(ColorFondo,28)
 PintarBaseQR(ColorQR)
-AlternarPintar(ColorQR,ColorFondo, 9, "Fila", 9, "A", 7,2)
-AlternarPintar(ColorQR,ColorFondo, 9, "Columna", 10, "G", 7,2)
-BinarioLongitud = input("Ingrese una cadena de texto: ")
-StringBinaria = CadenaBinario(BinarioLongitud)
-PintarDiagonal(20,25, Green, Blue,StringTest )
-#PintarDiagonal(24,25, Green, Blue,LimpiarString(BinarioLongitud) )
-print(type(LimpiarString(StringBinaria)))
-print(LimpiarString(StringBinaria))
-print(type(StringTest))
+AlternarPintar(ColorQR,"FF0000", 9, "Fila", 9, "A", 7,2)
+AlternarPintar(ColorQR,"FF0000", 9, "Columna", 10, "G", 7,2)
+Cadena = input("Ingrese una cadena de texto: ")
+StringBinaria, Longitud = CadenaBinario(Cadena)
 
+print(f"Sin funcion{StringBinaria}")
+print(type(StringBinaria))
+print(f"Funcion limpiar string {LimpiarString((StringBinaria))}")
+NuevaString = LimpiarString((StringBinaria))
+print(NuevaString)
+print(Longitud)
+LongitudBinaria = NumBinario(Longitud)
+print(type(LongitudBinaria))
+LongitudBinaria = LimpiarString(LongitudBinaria)
+sin_espacios = str(LongitudBinaria).replace(" ", "")
+print(sin_espacios)
+PintarDiagonal(12,25, Green, "FF0000",NuevaString[0:8] )
+PintarDiagonal(16,25, "0F0F0F", "00FF00",NuevaString[9:17] )
+PintarDiagonal(20,25, Green, Blue,StringTest )
+PintarDiagonal(24,25, Green, "0000FF",sin_espacios )
+CeldasZigZag = []
+for Fila in reversed(range(1, 26)):
+    for Columna in reversed(range(1, 26)):
+        CeldasZigZag.append(abecedario[Columna] + str(Fila + 1))
 
 
 wb.save("Test.xlsx")

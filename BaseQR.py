@@ -197,9 +197,12 @@ PintarDiagonal(16,25, "0F0F0F", "00FF00",NuevaString[9:17] )
 PintarDiagonal(20,25, Green, Blue,StringTest )
 PintarDiagonal(24,25, Green, "0000FF",sin_espacios )
 CeldasZigZag = []
+Contador1 = 0
+Contador2=0
 for Fila in reversed(range(1, 26)):
-    for Columna in reversed(range(1, 26)):
-        CeldasZigZag.append(abecedario[Columna] + str(Fila + 1))
+    if (Fila % 2) != 0:
+        for Columna in reversed(range(1, 26)):
+            CeldasZigZag.append(abecedario[Columna] + str(Fila + 1))
 
 
 wb.save("Test.xlsx")

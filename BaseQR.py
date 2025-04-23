@@ -149,8 +149,10 @@ def CeldasOcupadasSolo(inicioFila,inicioColumna, Rango, Boolean):
 
 print(CeldasOcupadasCuadrado(1,1, 9)) #ARRIBA IZQUIERDA
 print(CeldasOcupadasCuadrado(18,1, 8)) #ABAJO IZQUIERDA
-print(CeldasOcupadasSolo(18,10, 8, True)) #ABAJO IZQUIERDA
+print(CeldasOcupadasSolo(18,9, 8, True))
+print(CeldasOcupadasSolo(1,9, 9, True))#ABAJO IZQUIERDA
 print(CeldasOcupadasSolo(9,18, 8, False))
+print(CeldasOcupadasSolo(9,1, 9, False))
 print(CeldasOcupadasCuadrado(1,18, 8)) # ARRIBA DERECHA
 print(CeldasOcupadasCuadrado(17,17, 5))  #CUADRADO SOLO
 print(CeldasOcupadasCuadrado(6,11, 1))
@@ -163,7 +165,7 @@ print(CeldasOcupadasCuadrado(15,6, 1))
 print(CeldasOcupadasCuadrado(17,6, 1))
 
 
-TotalCeldasOcupadas = (CeldasOcupadasCuadrado(6,11, 1) +  CeldasOcupadasCuadrado(6,13, 1) +  CeldasOcupadasCuadrado(6,15, 1) + CeldasOcupadasCuadrado(6,17, 1) + CeldasOcupadasCuadrado(11,6, 1) +  CeldasOcupadasCuadrado(13,6, 1) +  CeldasOcupadasCuadrado(15,6, 1) + CeldasOcupadasCuadrado(17,6, 1)+ CeldasOcupadasCuadrado(1,1, 8) +  CeldasOcupadasCuadrado(18,1, 8) + CeldasOcupadasCuadrado(1,18, 8) + CeldasOcupadasCuadrado(17,17, 5) + CeldasOcupadasSolo(9,18, 8, False) + CeldasOcupadasSolo(18,10, 8, True))
+TotalCeldasOcupadas = (CeldasOcupadasSolo(9,1, 9, False)+CeldasOcupadasSolo(1,9, 9, True)+CeldasOcupadasCuadrado(6,11, 1) +  CeldasOcupadasCuadrado(6,13, 1) +  CeldasOcupadasCuadrado(6,15, 1) + CeldasOcupadasCuadrado(6,17, 1) + CeldasOcupadasCuadrado(11,6, 1) +  CeldasOcupadasCuadrado(13,6, 1) +  CeldasOcupadasCuadrado(15,6, 1) + CeldasOcupadasCuadrado(17,6, 1)+ CeldasOcupadasCuadrado(1,1, 8) +  CeldasOcupadasCuadrado(18,1, 8) + CeldasOcupadasCuadrado(1,18, 8) + CeldasOcupadasCuadrado(17,17, 5) + CeldasOcupadasSolo(9,18, 8, False) + CeldasOcupadasSolo(18,10, 8, True))
 print(TotalCeldasOcupadas)
 print("PRIMER PRINT")
 wb = Workbook()

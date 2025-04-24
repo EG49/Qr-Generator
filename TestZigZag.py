@@ -142,8 +142,47 @@ PintarBaseQR(ColorQR)
 AlternarPintar(ColorQR,"FF0000", 9, "Fila", 9, "A", 7,2)
 AlternarPintar(ColorQR,"FF0000", 9, "Columna", 10, "G", 7,2)
 # Cadena de bits binarios
-binarios = "01101000 01110100 01110100 01110000 01110011 00111010 00101111 00101111 01101101 01110101 01110011 01101001 01100011 00101110 01111001 01101111 01110101 01110100 01110101 01100010 01100101 00101110 01100011 01101111 01101101 00101111 01110111 01100001 01110100 01100011 01101000 00111111 01110110 00111101 01101000 00110101 01000101 01111010 01001110 01111010 01110110 00110100 01100101 01010000 00110100 00100110 01101100 01101001 01110011 01110100 00111101 01010010 01000100 01000001 01001101 01010110 01001101 00110011 00110000 01010111 01001110 01101001 01000111 01101000 00111001 01100101 01110110 01101011"
-binarios = binarios.replace(" ", "")
+# Todos los datos juntos: datos originales + códigos de corrección Reed-Solomon
+data_total = [
+    15, 104, 116, 116, 112, 115, 58, 47, 47, 116, 105, 110, 121, 117, 114, 108,
+    46, 99, 111, 109, 47, 52, 104, 52, 104, 97, 99, 51, 114,
+    28, 9, 195, 2, 10, 232, 246, 198, 72, 82
+]
+
+# Convertir cada byte a binario de 8 bits
+binary_list = [format(byte, '08b') for byte in data_total]
+
+# Concatenar todos los bits en una sola cadena
+binary_string = ''.join(binary_list)
+
+
+binary_data = (
+    "00001111" "01101000" "01110100" "01110100" "01110000" "01110011" "00111010" "00101111" "00101111" "01110100"
+    "01101001" "01101110" "01111001" "01110101" "01110010" "01101100" "00101110" "01100011" "01101111" "01101101"
+    "00101111" "00110100" "01101000" "00110100" "01101000" "01100001" "01100011" "00110011" "01110010"
+    "00011100" "00001001" "11000011" "00000010" "00001010" "11101000" "11110110" "11000110" "01001000" "01010010"
+)
+
+# Actualmente tenemos 312 bits (39 bytes). Para un QR versión 2 nivel Q se usan 44 bytes = 352 bits
+# Debemos añadir 352 - 312 = 40 bits de terminación y relleno
+
+# Paso 1: Añadir hasta 4 bits de terminación (relleno con ceros si no hay espacio para más)
+terminator = "0000"
+remaining = 352 - (len(binary_data) + len(terminator))
+
+# Paso 2: Relleno hasta completar múltiplos de 8 bits (bytes)
+padding_bits = ""
+while (len(binary_data) + len(terminator) + len(padding_bits)) < 352:
+    padding_bits += "1110110000010001"  # Se alternan estos dos bytes según el estándar
+
+# Limitar a los bits necesarios exactos
+total_bits = binary_data + terminator + padding_bits
+total_bits = total_bits[:352]
+
+# Verificar cantidad final
+len(total_bits), total_bits
+
+binarios = total_bits
 indice_binario = 0
 
 # Lista de celdas prohibidas (omitida aquí por brevedad, asume que sigue igual)
